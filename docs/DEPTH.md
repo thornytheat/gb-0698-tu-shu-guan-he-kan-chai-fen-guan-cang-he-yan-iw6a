@@ -27,6 +27,9 @@
 | TRAP-17 | 刊名演进 | 静默采信错误值 | 别名映射 | `app/modules/m2_titles/rules.py` | `tests/test_titles.py::test_title_alias` |
 | TRAP-22 | 多别名 | 静默采信错误值 | 确定代表名 | `app/modules/m2_titles/rules.py` | `tests/test_titles.py::test_title_spaces` |
 | TRAP-23 | 停刊区间 | 静默采信错误值 | 缺期集合剔除 | `app/modules/m5_gaps/rules.py` | `tests/test_gaps.py::test_gap_suspended` |
+| TRAP-31 | 跨年合刊 | 另一年误报缺期且册数翻倍 | 期次各归其年、册计一次 | `app/modules/m3_issues/rules.py`、`app/modules/m4_combined/rules.py`、`app/modules/m5_gaps/rules.py` | `tests/test_cross_year.py::test_cross_clears_false_gap` |
+| TRAP-32 | 跨年分册重复 | 同一册两个年度各记一行 | CROSS_YEAR_SPLIT阻断复核 | `app/modules/m4_combined/rules.py` | `tests/test_cross_year.py::test_split_detected_and_blocking` |
+| TRAP-33 | 晚到修正 | 覆盖被静默改写 | 首见保持+冲突列证+批次不可变 | `app/modules/m4_combined/rules.py`、`app/store.py` | `tests/test_cross_year.py::test_confirmed_coverage_immutable_after_correction` |
 
 ## 对账规则
 
@@ -34,4 +37,4 @@
 
 ## 已知不覆盖
 
-不支持超过2MB输入，不执行生产自动放行；异常值需人员复核。
+不支持超过2MB输入，不执行生产自动放行；异常值需人员复核。补录清单仅供复核，不生成采购订单、不连接采购系统。

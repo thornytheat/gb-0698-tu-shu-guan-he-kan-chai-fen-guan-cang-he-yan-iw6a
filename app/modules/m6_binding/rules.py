@@ -6,5 +6,5 @@ def book_count(rows):
 def apply(ctx):
     ctx["books"]=book_count(ctx["held"])
     ctx["balance"]={"input":ctx["input_count"],"accepted":ctx["input_count"]-len(ctx["quarantine"])-ctx["blank_rows"],"quarantined":len(ctx["quarantine"]),"blank":ctx["blank_rows"]}
-    rows=[{"kind":"实体册","count":ctx["books"]},{"kind":"覆盖期次","count":sum(len(r["issues"]) for r in ctx["held"])},{"kind":"合刊记录","count":sum(len(r["issues"])>1 for r in ctx["held"])},{"kind":"冲突","count":len(ctx["binding_conflicts"])}]
-    return report(rows,实体册=ctx["books"],装订冲突=len(ctx["binding_conflicts"]))
+    rows=[{"kind":"实体册","count":ctx["books"]},{"kind":"覆盖期次","count":sum(len(r["issues"]) for r in ctx["held"])},{"kind":"合刊记录","count":sum(len(r["issues"])>1 for r in ctx["held"])},{"kind":"跨年合刊","count":len(ctx["cross_year"])},{"kind":"冲突","count":len(ctx["binding_conflicts"])},{"kind":"跨年分册疑似","count":len(ctx["split_conflicts"])}]
+    return report(rows,实体册=ctx["books"],装订冲突=len(ctx["binding_conflicts"]),跨年合刊=len(ctx["cross_year"]),跨年分册疑似=len(ctx["split_conflicts"]))
